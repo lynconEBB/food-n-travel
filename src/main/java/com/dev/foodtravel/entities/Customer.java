@@ -3,6 +3,7 @@ package com.dev.foodtravel.entities;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,10 +14,16 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotEmpty(message = "Campo nome completo não pode ser vazaio")
     String name;
+
+    @Past(message = "Data futura inválida")
+    @NotNull(message = "Campo data de nascimento não pode ser vazio")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
+    @NotNull(message = "Campo numero de viagens não pode ser vazio")
+    @PositiveOrZero(message = "Numero de viagens não pode ser negativo")
     private Long travels;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

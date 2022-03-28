@@ -2,16 +2,24 @@ package com.dev.foodtravel.controllers;
 
 import com.dev.foodtravel.entities.Food;
 import com.dev.foodtravel.repositories.FoodRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/foods")
 public class FoodController {
+
+    private static final Logger logger = LoggerFactory.getLogger(FoodController.class);
     private final FoodRepository repository;
 
     @Autowired
@@ -27,7 +35,17 @@ public class FoodController {
     }
 
     @PostMapping
-    public String createOrUpdate(@ModelAttribute("food") Food food) {
+    public String createOrUpdate(@Valid @ModelAttribute("food") Food food, BindingResult result) {
+        if (result.hasErrors()) {
+            List<FieldError> errors = result.getFieldErrors();
+            for (FieldError error : errors) {
+                if(food.getId() != null)
+                    logger.error("Erro durante atualização do alimento de id {}, {}",food.getId(),error.getDefaultMessage());
+                else
+                    logger.error("Erro durante cadastro de novo alimento, {}",error.getDefaultMessage());
+            }
+            return "foodsForm";
+        }
         repository.save(food);
         return "redirect:/foods";
     }
@@ -40,6 +58,7 @@ public class FoodController {
             repository.save(food.get());
             return "redirect:/foods";
         }
+        logger.error("Alimento com id {} não encontrado para executar remoção", id);
         return "/notFind";
     }
 
@@ -47,6 +66,7 @@ public class FoodController {
     public String showCreateForm(@RequestParam(name="id", required = false) Long id, Model model) {
         Food food = new Food();
         boolean update = false;
+
         if(id != null) {
            Optional<Food> optionalFood = repository.findById(id);
            if (optionalFood.isEmpty())

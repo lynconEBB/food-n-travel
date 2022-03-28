@@ -1,6 +1,7 @@
 package com.dev.foodtravel.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 public class Food {
@@ -8,21 +9,34 @@ public class Food {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotEmpty(message = "Campo nome do alimento não pode ser vazio")
     @Column(nullable = false)
     private String name;
 
+    @NotNull(message = "Campo preço não pode ser vazio")
+    @Positive(message = "Valor calorico precisa ser maior que 0")
     @Column(nullable = false)
     private Double caloricValue;
 
+    @NotNull(message = "Campo preço não pode ser vazio")
+    @Positive(message = "Preço deve ser maior que 0")
     @Column(nullable = false)
     private Double price;
 
     @Column(nullable = true)
-    private String brand = "Sem marca";
+    private String brand;
 
     private Boolean active = true;
 
     public Food() {}
+
+    @PreUpdate
+    @PrePersist
+    public void preInsert() {
+        if (this.brand == null || this.brand.equals("")) {
+            this.brand = "Sem marca";
+        }
+    }
 
     public Food(String name, Double caloricValue, Double price) {
         this.name = name;

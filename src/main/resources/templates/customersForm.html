@@ -8,14 +8,25 @@
 <body>
 <h1 class="display-5 fw-bold text-center" th:text="${update} ? 'Atualização de Cliente' : 'Cadastro de Cliente'"></h1>
     <form class="container" action="#" th:action="@{/customers}" th:object="${customer}" method="POST">
-
         <input type="hidden" th:field="*{id}" />
 
-        <input type="text" th:field="*{name}" class="form-control mb-4 col-4" placeholder="Nome completo">
+        <div class="form-group">
+            <label for="name">Nome Completo</label>
+            <input id="name" type="text" th:field="*{name}" class="form-control mb-4 col-4" placeholder="Nome completo">
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
 
-        <input type="date" th:field="*{birthDate}" class="form-control mb-4 col-4" placeholder="Data de nascimento">
+        <div class="form-group">
+            <label for="birthDate">Data de Nascimento</label>
+            <input id="birthDate" type="date" th:field="*{birthDate}" class="form-control mb-4 col-4">
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}"></div>
+        </div>
 
-        <input type="number" th:field="*{travels}" class="form-control mb-4 col-4" placeholder="Número de Viagens">
+        <div class="form-group">
+            <label for="travels">Número de viagens</label>
+            <input id="travels" type="number" th:field="*{travels}" class="form-control mb-4 col-4">
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('travels')}" th:errors="*{travels}"></div>
+        </div>
 
         <button type="submit" class="btn btn-info col-2 mx-auto">Cadastrar</button>
 

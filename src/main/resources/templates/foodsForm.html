@@ -12,13 +12,28 @@
 
         <input type="hidden" th:field="*{id}" />
 
-        <input type="text" th:field="*{name}" class="form-control mb-4 col-4" placeholder="Nome">
+        <div class="form-group">
+            <label for="name">Nome</label>
+            <input id="name" type="text" th:field="*{name}" class="form-control mb-4 col-4" placeholder="Nome">
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
+        <div class="form-group">
+            <label for="caloricValue">Valor Calorico</label>
+            <input id="caloricValue" type="text" th:field="*{caloricValue}" class="form-control mb-4 col-4" placeholder="Valor Calórico">
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('caloricValue')}" th:errors="*{caloricValue}"></div>
+        </div>
 
-        <input type="text" th:field="*{caloricValue}" class="form-control mb-4 col-4" placeholder="Valor Calorico">
+        <div class="form-group">
+            <label for="price">Preço</label>
+            <input id="price" type="text" th:field="*{price}" class="form-control mb-4 col-4" placeholder="Preço">
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+        </div>
 
-        <input type="text" th:field="*{price}" class="form-control mb-4 col-4" placeholder="Preço">
+        <div class="form-group">
+            <label for="brand">Marca</label>
+            <input id="brand" type="text" th:field="*{brand}" class="form-control mb-4 col-4" placeholder="Marca">
+        </div>
 
-        <input type="text" th:field="*{brand}" class="form-control mb-4 col-4" placeholder="Marca">
 
         <button type="submit" class="btn btn-info col-2" th:text="${update} ? 'Atualizar' : 'Cadastrar'"></button>
     </form>
