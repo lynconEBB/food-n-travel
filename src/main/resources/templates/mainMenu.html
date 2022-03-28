@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Food Travel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+    <h1 class="display-3 text-center mt-5 ">Food & Travel</h1>
+    <p class="lead text-center">Escolha um menu abaixo para gerenciar os dados:</p>
+    <div class="container">
+        <div class="row gx-5">
+            <a th:href="@{/customers}" class="col d-inline-flex flex-column align-items-center border mx-4 py-4">
+                <img  th:src="@{/images/person.svg}" style="width: 8%" alt="Icone Cliente"/>
+                <p class="fw-bold fs-4 text-decoration-none">Clientes</p>
+            </a>
+            <a th:href="@{/foods}" class="col d-inline-flex flex-column align-items-center border mx-4 py-4">
+                <img th:src="@{/images/pizza.svg}" style="width: 8%" alt="Icone Cliente"/>
+                <p class="fw-bold fs-4 text-decoration-none">Alimentos</p>
+            </a>
+        </a>
+    </div>
+</body>
+</html>
