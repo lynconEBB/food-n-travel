@@ -14,10 +14,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Controller
@@ -48,14 +46,12 @@ public class CustomerController {
         if (optCustomer.isPresent()) {
             Customer customer = optCustomer.get();
             List<Food> foods = foodRepository.findAllByActive(true);
-            List<Food> notRelatedFoods = new ArrayList<>(foods);
-            List<Food> currentHistory = customer.getOrders().stream().filter(Food::getActive).toList();
-            notRelatedFoods.removeAll(customer.getOrders());
+            foods.removeAll(customer.getOrders());
 
             model.addAttribute("selectedFood", new Food());
             model.addAttribute("customer",customer);
-            model.addAttribute("currentHistory", currentHistory);
-            model.addAttribute("foods",notRelatedFoods);
+            model.addAttribute("currentHistory", customer.getActiveOrders());
+            model.addAttribute("foods",foods);
             return "customerDetails";
         }
         logger.error("Cliente com id {} não encontrado", id);

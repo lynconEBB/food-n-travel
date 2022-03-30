@@ -29,8 +29,10 @@ public class FoodController {
 
     @GetMapping
     public String findAll(Model model) {
-        Iterable<Food> foods = repository.findAll();
+        List<Food> foods = repository.findAllByActive(true);
+        List<Food> excludedFoods = repository.findAllByActive(false);
         model.addAttribute("foods", foods);
+        model.addAttribute("excludedFoods", excludedFoods);
         return "foodsList";
     }
 
