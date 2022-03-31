@@ -7,7 +7,7 @@ Este projeto foi desenvolvido pela equipe como um trabalho da matéria de Introd
 
 
 ## Casos de Uso
----
+
 ![Diagramade de casos de uso](docs/DiagramaCasodeUso.png)
 
 | Caso de Uso | Cadastrar Cliente |
@@ -22,12 +22,12 @@ Este projeto foi desenvolvido pela equipe como um trabalho da matéria de Introd
 
 
 ## Diagrama de Atividades
----
+
 ![Diagrama de atividade](docs/DiagramaAtividade.png)
 <br> <br>
 
 ## Descrição do Software
----
+
 Este software foi desenvolvido com o intuito de ser uma aplicação web, então para acessá-lo basta executar o programa e buscar por localhost:8080 no navegar, dessa forma será apresentado a tela inicial. No menu principal será apresentado três opções sendo estas Clientes, Alimentos e Gerar Relatório. 
 
 Na aba Clientes há um botão para cadastrar um novo cliente permitindo que o usuário adicione novos clientes e tabela mostrando todos os clientes já cadastrados com seus respectivos dados. Ao lado de cada um dos clientes há três botões Excluir, Editar e Detalhes. Excluir possibilita eliminar um cliente do sitema; Editar permite alterar os dados que foram atribuidos ao cliente, exceto os pedidos feitos por este; e Detalhes mostra os dados do cliente juntamente com o histórico atual e completo de pedidos, ademais permite adicionar novos pedidos ao histórico.
