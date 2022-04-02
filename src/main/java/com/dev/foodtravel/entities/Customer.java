@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Classe model representando o cliente, está classe é utitlizada como base para
+ * a criação das tabelas no banco de dados
+ */
 @Entity
 public class Customer {
     @Id
@@ -28,7 +32,7 @@ public class Customer {
     @PositiveOrZero(message = "Numero de viagens não pode ser negativo")
     private Long travels;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(name = "customer_foods",
                 joinColumns = { @JoinColumn(name = "customer_id")},
                 inverseJoinColumns = { @JoinColumn(name = "food_id")})

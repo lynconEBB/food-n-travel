@@ -1,14 +1,14 @@
 # Food&Travel
 > Equipe: Lyncon Baez e Lucas Tomio Darim
 
-<br>![Tela inicial](docs/mainPage.png)
+<br>![Tela inicial](https://github.com/lynconEBB/projeto-ies/blob/main/docs/mainPage.png?raw=true)
 
 Este projeto foi desenvolvido pela equipe como um trabalho da matéria de Introdução à Engenharia de Software, para demontrar os conhecimentos aprendidos durante o curso em relação diagramas de caso de uso UML e boas práticas de programação.<br><br>
 
 
 ## Casos de Uso
 
-![Diagramade de casos de uso](docs/DiagramaCasodeUso.png)
+![Diagramade de casos de uso](https://github.com/lynconEBB/projeto-ies/blob/main/docs/DiagramaCasodeUso.png?raw=trueg)
 
 | Caso de Uso | Cadastrar Cliente |
 | ----------- | ----------- |
@@ -23,7 +23,7 @@ Este projeto foi desenvolvido pela equipe como um trabalho da matéria de Introd
 
 ## Diagrama de Atividades
 
-![Diagrama de atividade](docs/DiagramaAtividade.png)
+![Diagrama de atividade](https://github.com/lynconEBB/projeto-ies/blob/main/docs/DiagramaAtividade.png?raw=true)
 <br> <br>
 
 ## Descrição do Software

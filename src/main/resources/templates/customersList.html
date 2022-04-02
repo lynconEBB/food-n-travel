@@ -7,34 +7,43 @@
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
 </head>
 <body>
-    <h1 class="display-5 fw-bold text-center">Listagem de Clientes</h1>
-    <div class="col-lg-6 mx-auto text-center">
-        <a th:href="@{/customers/form}" type="button" class="btn btn-outline-primary">Cadastrar Novo Cliente</a>
-        <br/>
-        <table class="table table-striped table-dark">
-            <thead>
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Nome Completo</th>
-                <th scope="col">Data de Nascimento</th>
-                <th scope="col">Nº Viagens</th>
-                <th scope="col">Ações</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="customer: ${customers}">
-                <th scope="row" th:text="${customer.getId()}"></th>
-                <td th:text="${customer.getName()}"></td>
-                <td th:text="${#dates.format(customer.getBirthDate(), 'dd/MM/yyyy')}"></td>
-                <td th:text="${customer.getTravels()}"></td>
-                <td>
-                    <a type="button" th:href="@{/customers/delete/{id}(id=${customer.getId()})}" class="btn btn-danger">Excluir</a>
-                    <a type="button" th:href="@{/customers/form(id=${customer.getId()})}" class="btn btn-info">Editar</a>
-                    <a type="button" th:href="@{/customers/{id}(id=${customer.getId()})}" class="btn btn-warning">Detalhes</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+<div class="container text-center mt-2">
+    <a th:href="@{/}" class="link-primary text-center">Voltar</a>
+</div>
+<h1 class="display-5 text-center my-4">Listagem de Clientes</h1>
+<div class="container">
+    <div class="d-flex justify-content-center my-4">
+        <a th:href="@{/customers/form}" type="button" class="btn btn-outline-primary">Cadastrar Cliente</a>
     </div>
+    <div th:unless="${customers.size() > 0}" class="alert alert-info">
+        Nenhum cliente encontrado!
+    </div>
+    <table th:if="${customers.size() > 0}" class="table">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nome Completo</th>
+            <th scope="col">Data de Nascimento</th>
+            <th scope="col">Nº Viagens</th>
+            <th scope="col">Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer: ${customers}">
+            <td th:text="${customer.getId()}"></td>
+            <td th:text="${customer.getName()}"></td>
+            <td th:text="${#dates.format(customer.getBirthDate(), 'dd/MM/yyyy')}"></td>
+            <td th:text="${customer.getTravels()}"></td>
+            <td>
+                <a type="button" th:href="@{/customers/delete/{id}(id=${customer.getId()})}" class="btn btn-danger">Excluir</a>
+                <a type="button" th:href="@{/customers/form(id=${customer.getId()})}"
+                   class="btn btn-info">Editar</a>
+                <a type="button" th:href="@{/customers/{id}(id=${customer.getId()})}"
+                   class="btn btn-warning">Detalhes</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

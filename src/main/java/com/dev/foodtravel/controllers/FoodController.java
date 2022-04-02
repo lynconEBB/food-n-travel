@@ -15,6 +15,10 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Classe controladora responsavel por lidar com as requisições iniciddas com "/foods
+ * recebidas e garantir uma resposta, seja por meio de uma página html (view) ou outro tipo de arquivo
+ */
 @Controller
 @RequestMapping("/foods")
 public class FoodController {
@@ -22,11 +26,19 @@ public class FoodController {
     private static final Logger logger = LoggerFactory.getLogger(FoodController.class);
     private final FoodRepository repository;
 
+    /**
+     * Construtor com injeção de dependencia causada pelo framework
+     */
     @Autowired
     public FoodController(FoodRepository repository) {
         this.repository = repository;
     }
 
+    /**
+     * Metódo acionado ao relizar uma requisição GET para "/foods"
+     * Busca todos os alimentos do banco utilizando os repositórios e retorna a página contendo esses
+     * alimentos separados por ativos e excluidos
+     */
     @GetMapping
     public String findAll(Model model) {
         List<Food> foods = repository.findAllByActive(true);
@@ -36,6 +48,11 @@ public class FoodController {
         return "foodsList";
     }
 
+    /**
+     * Metódo acionado ao relizar uma requisição POST para "/foods"
+     * Insere um novo alimento ou atualiza caso um id  valido seja passsado, caso algum campo não seja valido
+     * o usuário permanece no formulário com erros indicando as correções a serem realizadas
+     */
     @PostMapping
     public String createOrUpdate(@Valid @ModelAttribute("food") Food food, BindingResult result) {
         if (result.hasErrors()) {
@@ -52,6 +69,11 @@ public class FoodController {
         return "redirect:/foods";
     }
 
+    /**
+     * Metódo acionado ao relizar uma requisição GET para "/foods/{id}" onde id é o id do alimento
+     * Exclui um alimento do banco alterando seu atributo "active" para false caso seja encontrado,
+     * caso contrario uma pagina de erro é retornada
+     */
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         Optional<Food> food = repository.findById(id);
@@ -64,6 +86,10 @@ public class FoodController {
         return "/notFind";
     }
 
+    /**
+     * Metódo acionado ao relizar uma requisição GET para "/foods/form"
+     * Exibe o formulario de cadastro/atualização de um alimento
+     */
     @GetMapping("/form")
     public String showCreateForm(@RequestParam(name="id", required = false) Long id, Model model) {
         Food food = new Food();

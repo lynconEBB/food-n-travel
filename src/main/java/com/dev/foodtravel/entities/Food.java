@@ -3,6 +3,10 @@ package com.dev.foodtravel.entities;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+/**
+ * Classe model representando um alimento, está classe é utitlizada como base para
+ * a criação das tabelas no banco de dados
+ */
 @Entity
 public class Food {
     @Id
@@ -30,6 +34,9 @@ public class Food {
 
     public Food() {}
 
+    /**
+     * Insere "Sem marca" no campo marca caso nenhum valor seja passado pelo usuário
+     */
     @PreUpdate
     @PrePersist
     public void preInsert() {

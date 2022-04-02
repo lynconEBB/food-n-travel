@@ -17,7 +17,10 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-
+/**
+ * Classe controladora responsavel por lidar com as requisições iniciddas com "/customers/
+ * recebidas e garantir uma resposta, seja por meio de uma página html (view) ou outro tipo de arquivo
+ */
 @Controller
 @RequestMapping("/customers")
 public class CustomerController {
@@ -26,19 +29,32 @@ public class CustomerController {
     private final CustomerRepository repository;
     private final FoodRepository foodRepository;
 
+    /**
+     * Construtor com injeção de dependencia causada pelo framework
+     */
     @Autowired
     public CustomerController(CustomerRepository repository, FoodRepository foodRepository) {
         this.repository = repository;
         this.foodRepository = foodRepository;
     }
 
+    /**
+     * Metódo acionado ao relizar uma requisição GET para "/customers"
+     * Busca todos os clientes do banco utilizando os repositórios e
+     * retorna a página contendo esses clientes
+     */
     @GetMapping
     public String findAll(Model model) {
-        Iterable<Customer> customers = repository.findAll();
+        List<Customer> customers = repository.findAll();
+
         model.addAttribute("customers",customers);
         return "customersList";
     }
 
+    /**
+     * Metódo acionado ao relizar uma requisição GET para "/customers/{id}" onde id é o id do cliente
+     * Busca e rxibe os detalhes do cliente
+     */
     @GetMapping("/{id}")
     public String findById(@PathVariable Long id, Model model) {
         Optional<Customer> optCustomer = repository.findById(id);
@@ -58,6 +74,10 @@ public class CustomerController {
         return "notFind";
     }
 
+    /**
+     * Metódo acionado ao relizar uma requisição GET para "/customers/delete/{id}" onde id é o id do cliente
+     * Exclui um cliente do banco de dados caso esse cliente seja encontrado, caso contrario uma pagina de erro é retornada
+     */
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         Optional<Customer> customer = repository.findById(id);
@@ -69,6 +89,11 @@ public class CustomerController {
         return "/notFind";
     }
 
+    /**
+     * Metódo acionado ao relizar uma requisição POST para "/customers/{id}/addFood" onde id é o id do cliente
+     * Adiciona o alimento passado como parametro ao cliente de id passado no caminha da requisição,
+     * caso algum destes não seja encontrado uma pagina de erro é retornada
+     */
     @PostMapping("/{id}/addFood")
     public String addFood(@PathVariable Long id, @ModelAttribute("selectedFood") Food food) {
         Optional<Customer> optionalCustomer = repository.findById(id);
@@ -83,6 +108,11 @@ public class CustomerController {
         return "notFind";
     }
 
+    /**
+     * Metódo acionado ao relizar uma requisição POST para "/customers"
+     * Insere um novo cliente ou atualiza caso um id  valido seja passsado, caso algum campo não seja valido
+     * o usuário permanece no formulário com erros indicando as ações a serem tomadas
+     */
     @PostMapping
     public String createOrUpdate(@Valid @ModelAttribute("customer") Customer customer, BindingResult result) {
         if (result.hasErrors()) {
@@ -103,6 +133,10 @@ public class CustomerController {
         return "redirect:/customers";
     }
 
+    /**
+     * Metódo acionado ao relizar uma requisição GET para "/customers/form"
+     * Exibe o formulario de cadastro/atualização
+     */
     @GetMapping("/form")
     public String showForm(@RequestParam(name="id", required = false) Long id, Model model) {
         Customer customer = new Customer();

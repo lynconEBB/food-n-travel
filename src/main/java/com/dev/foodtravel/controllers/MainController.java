@@ -2,7 +2,6 @@ package com.dev.foodtravel.controllers;
 
 import com.dev.foodtravel.entities.Customer;
 import com.dev.foodtravel.repositories.CustomerRepository;
-import com.dev.foodtravel.repositories.FoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -15,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.*;
 
+/**
+ * Classe controladora de uso geral responsavel por lidar com as requisições iniciddas com "/"
+ * recebidas e garantir uma resposta, seja por meio de uma página html (view) ou outro tipo de arquivo
+ */
 @Controller
 @RequestMapping("/")
 public class MainController {
@@ -25,11 +28,20 @@ public class MainController {
         this.customerRepository = customerRepository;
     }
 
+    /**
+     * Metódo acionado ao relizar uma requisição GET para "/"
+     * Exibe a página de menu principal contendo as 3 principais opções
+     */
     @GetMapping
     public String showMenu() {
        return "mainMenu";
     }
 
+    /**
+     * Metódo acionado ao relizar uma requisição GET para "/report"
+     * Envia um arquivo de relatório temporariamente para o cliente realizar download
+     * o relatório contem todos os clientes cadastrados com seus historicos atuais de pedidos
+     */
     @GetMapping("/report")
     public ResponseEntity<Resource> generateReport() throws IOException {
         File tempFile = File.createTempFile("relatorio",".txt");
